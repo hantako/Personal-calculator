@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>摆摊计算器</title>
+<link rel="stylesheet" href="https://cdn.staticfile.net/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.staticfile.net/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      background-color: #56351E;
+    }
+    h1 {
+      margin-top: 10px;
+      color: #ffffff;
+    }
+    button {
+      height: 50px;
+      border: none;
+    }
+    .calculator {
+      text-align: center;
+      width: 80%;
+      height: 70%;
+      border-radius: 10px;
+      margin: auto;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #000020;
+      padding: 5px;
+    }
+    .buttons {
+      width: 100%;
+      text-align: center;
+      margin:0.1% auto;
+    }
+    .button{
+      float: left;
+      margin: 2px;
+      width:24%;
+      color: #ffffff;
+      background: #000020;
+      cursor: pointer;
+font-size: 30px;
+    }
+    .textbox {
+      margin-top: 10px;
+      text-align: right;
+      font-size:100px
+      border: none;
+      height: 50px;
+      width: 270px;
+      color: #ffffff;
+      background-color: #000030;
+	font-size: 50px;
+    }
+.price{
+background:#8686a5;
+font-size: 1.2em;
+}
+.container {
+width: 80%;
+font-size: 2em;
+padding: 2% 5%;
+}
+</style>
+
+<script>
+    var ans = "";
+    var clear = false;
+    var calc = "";//初始化数据
+    $(document).ready(function() {
+      $("button").click(function() {
+        var text = $(this).attr("value");//点击按钮事件发生文本内容为按钮值
+        //如果输入为1-10和加减乘除余
+        if(parseInt(text, 10) == text || text === "." || text === "/" || text === "*" || text === "-" || text === "+" || text === "%") {
+          //不为空时
+          if(clear === false) {
+            calc += text;
+            $(".textbox").val(calc);
+          }
+          //为空时
+          else {
+            calc = text;
+            $(".textbox").val(calc);
+            clear = false;
+          }
+        } 
+        //按下清除键的时候
+        else if(text === "AC") {
+          calc = "";
+          $(".textbox").val("");//输出空值         
+        } 
+         //按下回退键时，数组calc保留除最后一个字符外的字符，生成新的字符串
+        else if(text === "CE") {
+          calc = calc.slice(0, -1);
+          $(".textbox").val(calc);
+        }
+        //按下等号时用eval()函数计算字符串
+        else if(text === "=") {
+          ans = eval(calc);
+          $(".textbox").val(ans);
+          clear = true;
+        }
+      });
+    });
+</script>
+</head>
+<body>
+
+<div class="calculator">
+    <h1>计算器</h1>
+    <input type="textbox" class="textbox container" readonly>
+    <div class="buttons">
+ <button class="button" value="+">+</button>
+ <button class="button" value="-">-</button>
+<button class="button" value="*">&times</button>
+  <button class="button" value="/">&divide</button>
+
+<button class="button price" value="15">吧唧15</button>
+<button class="button price" value="36">李本36</button>
+<button class="button price" value="12">毛绒吧唧12</button>
+<button class="button price" value="8">其他8</button>
+<button class="button price" value="10">其他10</button>
+
+<button class="button price" value="6">其他6</button>
+<button class="button price" value="7">其他7</button>
+        
+       <button class="button" value="CE"><i class="fa fa-long-arrow-left"></i></button>
+
+       <button class="button" value="AC">C</button>
+       
+
+        
+
+        
+        <button class="button" value="0">0</button>
+        <button class="button" value=".">.</button>
+        <button class="button" value="=">=</button>
+    </div>
+</div>
+</body>
+</html>
